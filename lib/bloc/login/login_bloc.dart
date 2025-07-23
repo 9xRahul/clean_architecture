@@ -17,12 +17,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _emailChanged(EmailChanged event, Emitter<LoginState> emit) {
-
     emit(state.copyWith(email: event.email));
   }
 
   void _passwordChanged(PasswordChanged event, Emitter<LoginState> emit) {
-
     emit(state.copyWith(password: event.password));
   }
 
@@ -38,10 +36,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       var res = await loginRepository.loginApi(data: credntials);
 
+      print("res in block $res");
+
       emit(state.copyWith(postApiStatus: PostApiStatus.loading));
 
       if (res.error.isEmpty) {
-        await SessionManager().saveInUserPreference(user: res);
+        await SessionManager().saveInUserPreference(user: res, isLogged: true);
         await SessionManager().getUserPreference();
         emit(state.copyWith(
             message: "Login successfull",

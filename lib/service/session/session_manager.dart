@@ -14,30 +14,38 @@ class SessionManager {
   bool? isLoggedin;
 
   SessionManager._internal() {
-    isLoggedin = false;
+    // isLoggedin = false;
   }
 
   factory SessionManager() {
     return sessionManager;
   }
-  Future<void> saveInUserPreference({required dynamic user}) async {
+  Future<void> saveInUserPreference(
+      {required dynamic user, required isLogged}) async {
     localStorage.setValue(key: 'token', value: jsonEncode(user));
-    localStorage.setValue(key: 'isLoggedin', value: "true");
+    localStorage.setValue(key: 'isLoggedin', value: isLogged.toString());
   }
 
   Future<void> getUserPreference() async {
     try {
       var userData = await localStorage.readValue(key: 'token');
       var logedInStatus = await localStorage.readValue(key: "isLoggedin");
-      print("logged values $user $logedInStatus");
 
+      print("$logedInStatus  and $userData");
       if (userData.isNotEmpty) {
         SessionManager().user = UserModel.fromJson(jsonDecode(userData));
       }
 
-      SessionManager().isLoggedin = logedInStatus ? true : false;
+      SessionManager().isLoggedin = logedInStatus == "true" ? true : false;
+      print(
+          "logged values ${SessionManager().isLoggedin} ${SessionManager().user}");
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  clearData() {
+    localStorage.clearValue(key: 'token');
+    localStorage.clearValue(key: 'isLoggedin');
   }
 }
