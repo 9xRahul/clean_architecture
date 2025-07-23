@@ -20,7 +20,7 @@ void main() async {
 }
 
 void serviceLocator() {
-  getIt.registerLazySingleton<LoginRepository>(() => LoginMockRepository());
+  getIt.registerLazySingleton<LoginRepository>(() => LoginHttpAPiRepository());
 }
 
 class MyApp extends StatelessWidget {

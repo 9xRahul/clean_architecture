@@ -1,4 +1,5 @@
 import 'package:bloc_clean_coding/bloc/login/login_bloc.dart';
+import 'package:bloc_clean_coding/config/Routes/route_names.dart';
 import 'package:bloc_clean_coding/main.dart';
 import 'package:bloc_clean_coding/repository/auth/login_repository.dart';
 import 'package:bloc_clean_coding/utils/enums.dart';
@@ -52,8 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   FlushBarHelper.showFlushBarErrorMessage(
                       message: "Subitting", context: context, state: state);
                 } else if (state.postApiStatus == PostApiStatus.success) {
-                  FlushBarHelper.showFlushBarErrorMessage(
-                      message: state.message, context: context, state: state);
+                  Navigator.pushNamed(context, RouteNames.homeScreen);
                 } else if (state.postApiStatus == PostApiStatus.error) {
                   FlushBarHelper.showFlushBarErrorMessage(
                       message: state.message, context: context, state: state);

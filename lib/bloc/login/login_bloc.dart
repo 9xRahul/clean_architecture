@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_clean_coding/repository/auth/login_repository.dart';
+import 'package:bloc_clean_coding/service/session/session_manager.dart';
+
 import 'package:bloc_clean_coding/utils/enums.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,12 +17,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _emailChanged(EmailChanged event, Emitter<LoginState> emit) {
-    print(event.email);
+
     emit(state.copyWith(email: event.email));
   }
 
   void _passwordChanged(PasswordChanged event, Emitter<LoginState> emit) {
-    print(event.password);
+
     emit(state.copyWith(password: event.password));
   }
 
@@ -39,6 +41,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(postApiStatus: PostApiStatus.loading));
 
       if (res.error.isEmpty) {
+        await SessionManager().saveInUserPreference(user: res);
+        await SessionManager().getUserPreference();
         emit(state.copyWith(
             message: "Login successfull",
             postApiStatus: PostApiStatus.success));
