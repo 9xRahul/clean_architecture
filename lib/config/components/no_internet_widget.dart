@@ -16,9 +16,6 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .25,
-          ),
           Icon(
             Icons.cloud_off,
             color: Colors.red,
@@ -36,7 +33,7 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * .25,
+            height: MediaQuery.of(context).size.height * .1,
           ),
           ElevatedButton(
               onPressed: widget.onPressed,

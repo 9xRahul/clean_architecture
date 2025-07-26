@@ -3,10 +3,13 @@ import 'package:bloc_clean_coding/config/Routes/routes.dart';
 import 'package:bloc_clean_coding/repository/auth/login_mock_repository.dart';
 import 'package:bloc_clean_coding/repository/auth/login_repository.dart';
 import 'package:bloc_clean_coding/repository/auth/login_repository_api.dart';
+import 'package:bloc_clean_coding/repository/movies/movies_repository.dart';
 import 'package:bloc_clean_coding/views/splash/splash_screen.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+
+import 'repository/movies/movies_http_api_repository.dart';
 
 GetIt getIt = GetIt.instance;
 void main() async {
@@ -21,6 +24,8 @@ void main() async {
 
 void serviceLocator() {
   getIt.registerLazySingleton<LoginRepository>(() => LoginHttpAPiRepository());
+  getIt
+      .registerLazySingleton<MoviesRepository>(() => MoviesHttpApiRepository());
 }
 
 class MyApp extends StatelessWidget {
